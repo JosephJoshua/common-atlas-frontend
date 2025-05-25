@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../models/route_model.dart';
+import '../../providers/route_provider.dart';
+import '../../providers/user_provider.dart';
+import '../active_route/active_route_screen.dart'; // Updated import
+import 'package:common_atlas_frontend/widgets/app_drawer.dart';
 
 class RoutesPage extends StatefulWidget {
   const RoutesPage({super.key});
@@ -8,56 +14,119 @@ class RoutesPage extends StatefulWidget {
 }
 
 class _RoutesPageState extends State<RoutesPage> {
-  final List<String> items = List<String>.generate(100, (i) => "Route ${i}");
+  String _selectedFilter = "All"; // State variable for filter
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    // Access providers
+    final routeProv = Provider.of<RouteProvider>(context);
+    final userProv = Provider.of<UserProvider>(context);
+
+    // Filter logic
+    final allRoutes = routeProv.availableRoutes;
+    final displayedRoutes = allRoutes.where((route) {
+      if (_selectedFilter == "All") return true;
+      if (_selectedFilter == "Scenic") return route.type == RouteType.scenic;
+      if (_selectedFilter == "Active") return route.type == RouteType.active;
+      return false;
+    }).toList();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Routes"),
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
+      ),
+      drawer: const AppDrawer(),
+      body: Column(
         children: [
-          Text(
-            "Pick your route",
-            style: Theme.of(context).textTheme.headlineMedium,
-            textAlign: TextAlign.start,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                ChoiceChip(
+                  label: const Text("All"),
+                  selected: _selectedFilter == "All",
+                  onSelected: (isSelected) {
+                    if (isSelected) {
+                      setState(() {
+                        _selectedFilter = "All";
+                      });
+                    }
+                  },
+                ),
+                ChoiceChip(
+                  label: const Text("Scenic"),
+                  selected: _selectedFilter == "Scenic",
+                  onSelected: (isSelected) {
+                    if (isSelected) {
+                      setState(() {
+                        _selectedFilter = "Scenic";
+                      });
+                    }
+                  },
+                ),
+                ChoiceChip(
+                  label: const Text("Active"),
+                  selected: _selectedFilter == "Active",
+                  onSelected: (isSelected) {
+                    if (isSelected) {
+                      setState(() {
+                        _selectedFilter = "Active";
+                      });
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 32),
           Expanded(
             child: ListView.builder(
-              itemCount: items.length,
+              itemCount: displayedRoutes.length,
               itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 1,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Card(
-                    child: ListTile(
-                      tileColor: Colors.white,
-                      leading: Icon(Icons.location_pin, size: 32, color: Colors.red),
-                      title: Text(items[index], style: Theme.of(context).textTheme.titleMedium),
-                      subtitle: Text(
-                        "Incididunt ut pariatur minim adipisicing sit duis. Aliquip velit et adipisicing mollit velit amet magna ex ullamco ut fugiat. Ea sit mollit anim deserunt est aliquip anim. Sunt tempor mollit mollit anim tempor cupidatat reprehenderit esse proident commodo voluptate fugiat aliquip. Eu id eiusmod commodo labore Lorem voluptate do mollit id magna exercitation voluptate in. Non fugiat eiusmod officia consectetur do. Voluptate quis quis exercitation veniam incididunt laboris deserunt esse deserunt.",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      trailing: TextButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.arrow_right, color: Theme.of(context).colorScheme.primary),
-                        label: Text(
-                          "Go now",
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.w500,
+                final route = displayedRoutes[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(route.name, style: Theme.of(context).textTheme.headlineSmall),
+                        const SizedBox(height: 8),
+                        Text("Type: ${route.type.toString().split('.').last}"),
+                        Text("Distance: ${route.distance}"),
+                        Text("Difficulty: ${route.difficulty}"),
+                        Text("Energy Cost: ${route.energyCost}"),
+                        const SizedBox(height: 12),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: ElevatedButton(
+                            child: const Text("Start Route"),
+                            onPressed: () {
+                              if (userProv.userProfile.energy >= route.energyCost) {
+                                userProv.deductEnergy(route.energyCost);
+                                routeProv.setActiveRoute(route.id);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ActiveRouteScreen(),
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("Not enough energy to start this route!")),
+                                );
+                              }
+                            },
                           ),
                         ),
-                        style: ButtonStyle(iconAlignment: IconAlignment.end),
-                      ),
+                      ],
                     ),
                   ),
                 );
