@@ -4,16 +4,6 @@ import 'package:common_atlas_frontend/widgets/app_drawer.dart';
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
 
-  Widget _buildPatchNoteItem(BuildContext context, String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.primary), // Make it look like a link
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,30 +24,55 @@ class NewsPage extends StatelessWidget {
           children: [
             // Main Content Area (Left)
             Expanded(
-              flex: 3, // Giving more space to the main content
-              child: SingleChildScrollView( // Ensures content can scroll if it overflows
+              flex: 2, // Adjusted flex factor
+              child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Featured Article 1
                     AspectRatio(
                       aspectRatio: 16 / 9,
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(8.0), // Added rounded corners
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
-                        child: Center(child: Icon(Icons.image_outlined, size: 50, color: Colors.grey[500])), // Adjusted icon
+                        child: Center(child: Icon(Icons.image_outlined, size: 50, color: Colors.grey[500])),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 12), // Adjusted spacing
                     Text(
-                      "Featured Article: The Future of Urban Exploration",
+                      "Summer Exploration Challenge Announced!",
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-                      style: Theme.of(context).textTheme.bodyLarge, // Changed to bodyLarge
+                      "Get ready to discover hidden gems in your city with our new Summer Exploration Challenge! Special rewards and badges await those who complete all featured routes...",
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      textAlign: TextAlign.justify,
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Featured Article 2 (Optional)
+                     AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[350], // Slightly different color for visual distinction
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Center(child: Icon(Icons.developer_mode_outlined, size: 50, color: Colors.grey[600])),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      "Developer Insights: The Making of the Map",
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Go behind the scenes with our dev team as they discuss the challenges and triumphs of building the interactive map features you love. Learn about the technology stack and future plans for map enhancements.",
+                      style: Theme.of(context).textTheme.bodyLarge,
                       textAlign: TextAlign.justify,
                     ),
                   ],
@@ -75,22 +90,20 @@ class NewsPage extends StatelessWidget {
                   children: [
                     Text(
                       "Patch Notes",
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold), // Changed to titleLarge
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
-                    _buildPatchNoteItem(context, "Version 1.0.2 - Sunshine Update!"),
-                    _buildPatchNoteItem(context, "Version 1.0.1 - Map Tweaks & Performance Boosts"),
-                    _buildPatchNoteItem(context, "Version 1.0.0 - Launch Day Notes & Known Issues"),
-                    _buildPatchNoteItem(context, "Alpha 0.9.5 - Pre-launch Fixes"),
-                    _buildPatchNoteItem(context, "Alpha 0.9.0 - Major Feature Drop"),
-                    const SizedBox(height: 24), // Adjusted spacing
+                    _buildSidebarLinkItem(context, "Version 1.1.0: Map Polish & UI Enhancements", "Improved map loading times and updated several UI elements for a cleaner look."),
+                    _buildSidebarLinkItem(context, "Version 1.0.5: New Routes in Downtown", "Added three exciting new routes for exploring the downtown area. Check them out!"),
+                    _buildSidebarLinkItem(context, "Version 1.0.2: Minigame Fixes", "Addressed minor bugs in Trivia and Photo Challenge minigames."),
+                    const SizedBox(height: 24),
                      Text(
                       "Community Spotlight",
-                       style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold), // Changed to titleLarge
+                       style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
-                    _buildPatchNoteItem(context, "Best Route of the Week"),
-                    _buildPatchNoteItem(context, "Interview with a Top Explorer"),
+                    _buildSidebarLinkItem(context, "Route of the Week: 'Parkside Loop' by Explorer123", "Discover this amazing user-created route!"),
+                    _buildSidebarLinkItem(context, "Photo Contest Winners Announced!", "See the stunning winning entries from our latest photo challenge."),
                   ],
                 ),
               ),
@@ -102,16 +115,28 @@ class NewsPage extends StatelessWidget {
   }
 }
 
-Widget _buildPatchNoteItem(BuildContext context, String title) {
+// New helper method for sidebar items
+Widget _buildSidebarLinkItem(BuildContext context, String title, String? description) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 6.0), // Adjusted padding
-    child: Text(
-      title,
-      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(context).colorScheme.primary,
-            decoration: TextDecoration.underline,
-            decorationColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+    padding: const EdgeInsets.symmetric(vertical: 8.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        if (description != null) ...[
+          const SizedBox(height: 2),
+          Text(
+            description,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[700]),
           ),
+        ]
+      ],
     ),
   );
 }

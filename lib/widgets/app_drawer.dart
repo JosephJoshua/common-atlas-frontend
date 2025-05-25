@@ -3,6 +3,7 @@ import '../features/tutorial/tutorial_page.dart';
 import '../features/mail/mail_page.dart';
 import '../features/news/news_page.dart';
 import '../features/support/support_page.dart';
+import '../features/settings/settings_page.dart'; // Added for SettingsPage
 import '../app.dart'; // Required for MainScreen for navigation
 import 'package:provider/provider.dart'; // Added for RouteProvider
 import '../providers/route_provider.dart'; // Added for RouteProvider
@@ -101,8 +102,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
             title: Text('Settings', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
             onTap: () {
-              Navigator.pop(context);
-              _showPlaceholderDialog(context, "Settings");
+              Navigator.pop(context); // Close drawer
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage()));
             },
           ),
           ListTile(

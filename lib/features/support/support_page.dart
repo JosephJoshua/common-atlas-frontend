@@ -59,32 +59,42 @@ class SupportPage extends StatelessWidget {
               _buildFAQItem(
                 context,
                 "How is my location data used?",
-                "Your location data is used to help you navigate routes and discover checkpoints. We prioritize your privacy. For more details, please review our Privacy Policy in the 'About' section.",
+                "Your location data is used only while the app is active to show your position on the map, display nearby routes, and track your progress along an active route. We respect your privacy; please see our Data and Privacy section for more details.",
               ),
-              const SizedBox(height: 24), // Adjusted spacing
+              _buildFAQItem(
+                context,
+                "Can I suggest a new route?",
+                "We're always excited to hear about new route ideas! Currently, route suggestions can be emailed to routes@commonatlas.dev. We're working on an in-app feature for this!",
+              ),
+              _buildFAQItem(
+                context,
+                "What do the different checkpoint game types mean?",
+                "Trivia challenges test your knowledge, Photo Challenges ask you to capture a specific scene, and Prop Hunts involve finding a hidden object at the location. Each offers a unique way to interact with your surroundings!",
+              ),
+              const SizedBox(height: 24), 
 
               Text("Contact Us", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 12), // Consistent spacing
+              const SizedBox(height: 12), 
               Text(
                 "For further assistance, feature requests, or bug reports, please email us at:",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: 4), // Spacing before email
+              const SizedBox(height: 4), 
               SelectableText( 
                 "support@commonatlas.dev",
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 12), // Adjusted spacing
+              const SizedBox(height: 12), 
               Text(
                 "Or visit our support website:",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: 4), // Spacing before link
+              const SizedBox(height: 4), 
               TextButton.icon(
-                icon: Icon(Icons.link, color: Theme.of(context).colorScheme.primary), // Style applied
+                icon: Icon(Icons.link, color: Theme.of(context).colorScheme.primary), 
                 label: Text(
                   "commonatlas.dev/support",
-                  style: TextStyle(color: Theme.of(context).colorScheme.primary, decoration: TextDecoration.underline), // Style applied
+                  style: TextStyle(color: Theme.of(context).colorScheme.primary, decoration: TextDecoration.underline), 
                 ),
                 onPressed: () {
                   // TODO: Launch URL if url_launcher is used
@@ -95,15 +105,15 @@ class SupportPage extends StatelessWidget {
                 },
                 style: TextButton.styleFrom(padding: EdgeInsets.zero, alignment: Alignment.centerLeft),
               ),
-              const SizedBox(height: 24), // Adjusted spacing
+              const SizedBox(height: 24), 
 
               Text("About Common Atlas", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 12), // Consistent spacing
-              Text("Version: 1.0.0 (Prototype)", style: Theme.of(context).textTheme.bodyMedium), // Changed to bodyMedium
-              const SizedBox(height: 8), // Adjusted spacing
+              const SizedBox(height: 12), 
+              Text("Version: 1.0.0 (Polished MVP)", style: Theme.of(context).textTheme.bodyMedium), // Updated version string
+              const SizedBox(height: 8), 
               Text(
-                "Common Atlas is your guide to exploring the city in a fun and interactive way! Discover hidden gems, complete challenges, and learn more about your surroundings.",
-                style: Theme.of(context).textTheme.bodyMedium, // Changed to bodyMedium
+                "Common Atlas is your guide to exploring the city in a fun and interactive way! Discover hidden gems, complete challenges, and learn more about your surroundings. Embark on adventures, test your knowledge, and see your city in a new light!", // Slightly expanded description
+                style: Theme.of(context).textTheme.bodyMedium, 
               ),
               const SizedBox(height: 20),
             ],
