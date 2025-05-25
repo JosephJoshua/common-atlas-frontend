@@ -25,11 +25,16 @@ class SupportPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("SUPPORT"),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          }
         ),
       ),
       drawer: const AppDrawer(),

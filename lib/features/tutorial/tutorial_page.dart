@@ -1,5 +1,6 @@
 // lib/features/tutorial/tutorial_page.dart
 import 'package:flutter/material.dart';
+import 'package:common_atlas_frontend/widgets/app_drawer.dart'; // Added AppDrawer import
 
 class TutorialPage extends StatelessWidget {
   const TutorialPage({super.key});
@@ -7,7 +8,21 @@ class TutorialPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Tutorial")),
+      appBar: AppBar(
+        title: const Text("Tutorial"),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          }
+        ),
+      ),
+      drawer: const AppDrawer(), // Added AppDrawer
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: <Widget>[

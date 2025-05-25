@@ -85,15 +85,45 @@ class _MainScreenState extends State<MainScreen> {
     _pageController = PageController(initialPage: _selectedIndex);
   }
 
+import 'package:common_atlas_frontend/widgets/app_drawer.dart'; // Ensure AppDrawer is imported
+
+class _MainScreenState extends State<MainScreen> {
+  late PageController _pageController;
+  late int _selectedIndex;
+  // Define titles for each page to be used in AppBar
+  final List<String> _pageTitles = const ["Home", "Routes", "Progress", "Store", "Profile"];
+
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialPageIndex ?? 0;
+    _pageController = PageController(initialPage: _selectedIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar( // Added AppBar to MainScreen
+        title: Text(_pageTitles[_selectedIndex]), // Dynamic title
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          }
+        ),
+        // Potentially add actions here if needed globally for these main screens
+      ),
+      drawer: const AppDrawer(), // Added AppDrawer to MainScreen's Scaffold
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         currentIndex: _selectedIndex,
-        // selectedItemColor: Colors.black, // Will be inherited from theme
-        // unselectedItemColor: Colors.black, // Will be inherited from theme
         onTap: (index) {
           setState(() {
             _selectedIndex = index;
