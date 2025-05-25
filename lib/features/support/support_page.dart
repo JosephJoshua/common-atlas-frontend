@@ -7,11 +7,13 @@ class SupportPage extends StatelessWidget {
 
   Widget _buildFAQItem(BuildContext context, String question, String answer) {
     return ExpansionTile(
-      title: Text(question, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
-      childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8).copyWith(top:0),
+      title: Text(question, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
+      childrenPadding: const EdgeInsets.all(16.0).copyWith(top: 0, bottom: 10), // Applied padding
+      iconColor: Theme.of(context).colorScheme.primary, // Applied color
+      collapsedIconColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), // Applied color
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 8.0), // Add padding to the answer text
+          padding: const EdgeInsets.only(bottom: 8.0), 
           child: Text(answer, style: Theme.of(context).textTheme.bodyMedium),
         ),
       ],
@@ -38,7 +40,7 @@ class SupportPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("Frequently Asked Questions", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12), // Consistent spacing
               _buildFAQItem(
                 context,
                 "How do I reset my password?",
@@ -59,32 +61,33 @@ class SupportPage extends StatelessWidget {
                 "How is my location data used?",
                 "Your location data is used to help you navigate routes and discover checkpoints. We prioritize your privacy. For more details, please review our Privacy Policy in the 'About' section.",
               ),
-              const SizedBox(height: 30), // Increased spacing
+              const SizedBox(height: 24), // Adjusted spacing
 
               Text("Contact Us", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12), // Consistent spacing
               Text(
                 "For further assistance, feature requests, or bug reports, please email us at:",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
-              SelectableText( // Makes it easy to copy the email
+              const SizedBox(height: 4), // Spacing before email
+              SelectableText( 
                 "support@commonatlas.dev",
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12), // Adjusted spacing
               Text(
                 "Or visit our support website:",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
+              const SizedBox(height: 4), // Spacing before link
               TextButton.icon(
-                icon: Icon(Icons.link, color: Theme.of(context).colorScheme.primary),
+                icon: Icon(Icons.link, color: Theme.of(context).colorScheme.primary), // Style applied
                 label: Text(
                   "commonatlas.dev/support",
-                  style: TextStyle(color: Theme.of(context).colorScheme.primary, decoration: TextDecoration.underline),
+                  style: TextStyle(color: Theme.of(context).colorScheme.primary, decoration: TextDecoration.underline), // Style applied
                 ),
                 onPressed: () {
                   // TODO: Launch URL if url_launcher is used
-                  // For example: await launchUrl(Uri.parse("https://commonatlas.dev/support"));
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("URL Launching not yet implemented.")),
                   );
@@ -92,15 +95,15 @@ class SupportPage extends StatelessWidget {
                 },
                 style: TextButton.styleFrom(padding: EdgeInsets.zero, alignment: Alignment.centerLeft),
               ),
-              const SizedBox(height: 30), // Increased spacing
+              const SizedBox(height: 24), // Adjusted spacing
 
               Text("About Common Atlas", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 10),
-              Text("Version: 1.0.0 (Prototype)", style: Theme.of(context).textTheme.bodyLarge),
-              const SizedBox(height: 5),
+              const SizedBox(height: 12), // Consistent spacing
+              Text("Version: 1.0.0 (Prototype)", style: Theme.of(context).textTheme.bodyMedium), // Changed to bodyMedium
+              const SizedBox(height: 8), // Adjusted spacing
               Text(
                 "Common Atlas is your guide to exploring the city in a fun and interactive way! Discover hidden gems, complete challenges, and learn more about your surroundings.",
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context).textTheme.bodyMedium, // Changed to bodyMedium
               ),
               const SizedBox(height: 20),
             ],

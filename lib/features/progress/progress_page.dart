@@ -99,38 +99,40 @@ class ProgressPage extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.85),
-                border: Border.all(color: Colors.grey.shade400, width: 1.5),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(12.0), // Match CardTheme
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
-                    blurRadius: 5,
-                    offset: const Offset(0, 2),
+                    blurRadius: 4,
+                    spreadRadius: 1,
                   )
                 ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min, // Important for Column in Stack
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("Legend", style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    "Legend", 
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                  ),
                   const SizedBox(height: 8),
                   Row(children: [
                     Icon(Icons.timeline, color: Colors.blueAccent.shade700, size: 20),
                     const SizedBox(width: 8),
-                    const Text("Completed Route")
+                    Text("Completed Route", style: Theme.of(context).textTheme.bodyMedium)
                   ]),
                   const SizedBox(height: 4),
                   Row(children: [
                     Container(width: 12, height: 12, decoration: BoxDecoration(color: Colors.orangeAccent.withOpacity(0.7), border: Border.all(color: Colors.orangeAccent.shade700))),
                     const SizedBox(width: 8),
-                    const Text("Explored Area")
+                    Text("Explored Area", style: Theme.of(context).textTheme.bodyMedium)
                   ]),
                    const SizedBox(height: 4),
                   Row(children: [
                     Container(width: 12, height: 12, decoration: BoxDecoration(color: Colors.greenAccent.withOpacity(0.7), border: Border.all(color: Colors.green.shade700))),
                     const SizedBox(width: 8),
-                    const Text("Well Explored Area")
+                    Text("Well Explored Area", style: Theme.of(context).textTheme.bodyMedium)
                   ]),
                 ],
               ),
@@ -142,16 +144,15 @@ class ProgressPage extends StatelessWidget {
             bottom: 20,
             right: 20,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey.shade300),
-                 boxShadow: [
+                color: Colors.white.withOpacity(0.85),
+                borderRadius: BorderRadius.circular(12.0), // Match CardTheme
+                boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
-                    blurRadius: 5,
-                    offset: const Offset(0, 2),
+                    blurRadius: 4,
+                    spreadRadius: 1,
                   )
                 ],
               ),
@@ -161,12 +162,12 @@ class ProgressPage extends StatelessWidget {
                 children: [
                   Text(
                     "Total Points: ${userProvider.userProfile.points}",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8)),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    "Map Completion: 35% (mock)", // Mock completion percentage
-                     style: Theme.of(context).textTheme.titleSmall,
+                    "Map Completion: 35% (mock)",
+                     style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8)),
                   ),
                 ],
               ),

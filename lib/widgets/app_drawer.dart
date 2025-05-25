@@ -38,25 +38,26 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
-            child: Text(
-              'Common Atlas Menu',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary, // Use onPrimary for contrast
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            child: Align( // Align text to bottom left with padding
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 12.0, left: 4.0), // Adjust padding as needed
+                child: Text(
+                  'Common Atlas Menu',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        color: Colors.white, // Explicitly white for onPrimary
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
               ),
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.home_outlined),
-            title: const Text('Home (Map)'), // Changed Title
+            leading: Icon(Icons.home_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
+            title: Text('Home (Map)', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
             onTap: () {
               Navigator.pop(context); // Close drawer first
-
-              // Clear active route if one exists
               Provider.of<RouteProvider>(context, listen: false).clearActiveRoute();
-
-              // Navigate to MainScreen's first tab (HomeMapPage)
               Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => const MainScreen(initialPageIndex: 0)),
                 (route) => false,
@@ -64,49 +65,49 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.article_outlined),
-            title: const Text('News'),
+            leading: Icon(Icons.article_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
+            title: Text('News', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsPage()));
             },
           ),
           ListTile(
-            leading: const Icon(Icons.support_agent_outlined),
-            title: const Text('Support'),
+            leading: Icon(Icons.support_agent_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
+            title: Text('Support', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => const SupportPage()));
             },
           ),
           ListTile(
-            leading: const Icon(Icons.school_outlined),
-            title: const Text('Tutorial'),
+            leading: Icon(Icons.school_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
+            title: Text('Tutorial', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => const TutorialPage()));
             },
           ),
           ListTile(
-            leading: const Icon(Icons.mail_outline),
-            title: const Text('Mail'),
+            leading: Icon(Icons.mail_outline, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
+            title: Text('Mail', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => const MailPage()));
             },
           ),
-          const Divider(),
+          Divider(thickness: 1, color: Colors.grey[200]), // Styled Divider
           ListTile(
-            leading: const Icon(Icons.settings_outlined),
-            title: const Text('Settings'),
+            leading: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
+            title: Text('Settings', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
             onTap: () {
               Navigator.pop(context);
               _showPlaceholderDialog(context, "Settings");
             },
           ),
           ListTile(
-            leading: const Icon(Icons.logout_outlined),
-            title: const Text('Log Out'),
+            leading: Icon(Icons.logout_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
+            title: Text('Log Out', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
             onTap: () {
               Navigator.pop(context);
               _showPlaceholderDialog(context, "Log Out");

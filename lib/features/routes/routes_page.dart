@@ -46,42 +46,48 @@ class _RoutesPageState extends State<RoutesPage> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0), // Increased vertical padding
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Adjusted for better spacing
               children: <Widget>[
                 ChoiceChip(
                   label: const Text("All"),
                   selected: _selectedFilter == "All",
                   onSelected: (isSelected) {
-                    if (isSelected) {
-                      setState(() {
-                        _selectedFilter = "All";
-                      });
-                    }
+                    if (isSelected) setState(() => _selectedFilter = "All");
                   },
+                  selectedColor: Theme.of(context).colorScheme.primary,
+                  labelStyle: TextStyle(
+                    color: _selectedFilter == "All" ? Colors.white : Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0), // Adjusted padding
                 ),
                 ChoiceChip(
                   label: const Text("Scenic"),
                   selected: _selectedFilter == "Scenic",
                   onSelected: (isSelected) {
-                    if (isSelected) {
-                      setState(() {
-                        _selectedFilter = "Scenic";
-                      });
-                    }
+                    if (isSelected) setState(() => _selectedFilter = "Scenic");
                   },
+                  selectedColor: Theme.of(context).colorScheme.primary,
+                  labelStyle: TextStyle(
+                    color: _selectedFilter == "Scenic" ? Colors.white : Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 ),
                 ChoiceChip(
                   label: const Text("Active"),
                   selected: _selectedFilter == "Active",
                   onSelected: (isSelected) {
-                    if (isSelected) {
-                      setState(() {
-                        _selectedFilter = "Active";
-                      });
-                    }
+                    if (isSelected) setState(() => _selectedFilter = "Active");
                   },
+                  selectedColor: Theme.of(context).colorScheme.primary,
+                  labelStyle: TextStyle(
+                    color: _selectedFilter == "Active" ? Colors.white : Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 ),
               ],
             ),
@@ -92,19 +98,30 @@ class _RoutesPageState extends State<RoutesPage> {
               itemBuilder: (context, index) {
                 final route = displayedRoutes[index];
                 return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  // margin will be picked from CardTheme if this line is removed, or keep for specific override
+                  // margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), 
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(12.0), // Adjusted padding
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(route.name, style: Theme.of(context).textTheme.headlineSmall),
+                        Text(
+                          route.name, 
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                        ),
                         const SizedBox(height: 8),
-                        Text("Type: ${route.type.toString().split('.').last}"),
-                        Text("Distance: ${route.distance}"),
-                        Text("Difficulty: ${route.difficulty}"),
-                        Text("Energy Cost: ${route.energyCost}"),
-                        const SizedBox(height: 12),
+                        Text("Type: ${route.type.toString().split('.').last}", style: Theme.of(context).textTheme.bodyMedium),
+                        Text("Distance: ${route.distance}", style: Theme.of(context).textTheme.bodyMedium),
+                        Text("Difficulty: ${route.difficulty}", style: Theme.of(context).textTheme.bodyMedium),
+                        const SizedBox(height: 4),
+                        Text(
+                          "Energy Cost: ${route.energyCost}", 
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w600, 
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                        ),
+                        const SizedBox(height: 16), // Increased spacing before button
                         Align(
                           alignment: Alignment.centerRight,
                           child: ElevatedButton(

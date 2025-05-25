@@ -10,13 +10,12 @@ class ProfilePage extends StatelessWidget {
 
   Widget _buildProfileButton(BuildContext context, {required IconData icon, required String title, required VoidCallback onTap}) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      // Global CardTheme applies for shape and elevation.
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6), // Adjusted margin
       child: ListTile(
-        leading: Icon(icon, color: Theme.of(context).colorScheme.primary, size: 28),
-        title: Text(title, style: Theme.of(context).textTheme.titleMedium),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 18),
+        leading: Icon(icon, color: Theme.of(context).colorScheme.primary, size: 28), // Applied color
+        title: Text(title, style: Theme.of(context).textTheme.titleMedium), // Applied style
+        trailing: Icon(Icons.arrow_forward_ios, size: 18, color: Colors.grey[400]), // Applied color
         onTap: onTap,
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       ),
@@ -28,8 +27,9 @@ class ProfilePage extends StatelessWidget {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text(featureName),
-          content: Text("This feature ($featureName) is not yet implemented in the prototype."),
+          // Assuming AlertDialog shape is handled by a global DialogTheme or default M3 style
+          title: Text(featureName, style: Theme.of(dialogContext).textTheme.headlineSmall),
+          content: Text("This feature ($featureName) is not yet implemented in the prototype.", style: Theme.of(dialogContext).textTheme.bodyMedium),
           actions: <Widget>[
             TextButton(
               child: const Text("OK"),
@@ -77,39 +77,44 @@ class ProfilePage extends StatelessWidget {
               // Profile Info Section
               CircleAvatar(
                 radius: 50,
-                backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                child: Icon(Icons.person_outline, size: 50, color: Theme.of(context).colorScheme.onSecondaryContainer),
+                backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.2), // Applied styling
+                child: Icon(Icons.person, size: 50, color: Theme.of(context).colorScheme.primary), // Applied styling
               ),
               const SizedBox(height: 12),
               Text(
                 "Explorer Extraordinaire", // Placeholder name
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold), // Applied styling
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
 
               // User Stats Section
               Card(
-                elevation: 2,
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                // Global CardTheme applies for shape and elevation.
+                margin: const EdgeInsets.symmetric(horizontal: 16), // Default margin from spec
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  padding: const EdgeInsets.all(16.0), // Added internal padding
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Column(
                         children: [
-                          Text("Energy", style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.secondary)),
+                          Text("Energy", style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey[600])), // Applied styling
                           const SizedBox(height: 4),
-                          Text("${userProvider.userProfile.energy}", style: Theme.of(context).textTheme.headlineSmall),
+                          Text(
+                            "${userProvider.userProfile.energy}", 
+                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary), // Applied styling
+                          ),
                         ],
                       ),
                       Column(
                         children: [
-                          Text("Points", style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.primary)),
+                          Text("Points", style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey[600])), // Applied styling
                           const SizedBox(height: 4),
-                          Text("${userProvider.userProfile.points}", style: Theme.of(context).textTheme.headlineSmall),
+                           Text(
+                            "${userProvider.userProfile.points}", 
+                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary), // Applied styling
+                          ),
                         ],
                       ),
                     ],

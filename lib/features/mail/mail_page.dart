@@ -8,7 +8,15 @@ class MailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Mail / Messages")),
-      body: const Center(child: Text("In-App Messages - Coming Soon!")),
+      body: Padding( // Added Padding
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Text(
+            "In-App Messages - Coming Soon!",
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.grey[600]),
+          ),
+        ),
+      ),
     );
   }
 }
