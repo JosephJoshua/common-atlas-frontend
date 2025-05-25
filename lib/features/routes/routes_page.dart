@@ -3,8 +3,9 @@ import 'package:provider/provider.dart';
 import '../../models/route_model.dart';
 import '../../providers/route_provider.dart';
 import '../../providers/user_provider.dart';
-import '../active_route/active_route_screen.dart'; // Updated import
+// import '../active_route/active_route_screen.dart'; // No longer directly navigating here
 import 'package:common_atlas_frontend/widgets/app_drawer.dart';
+import 'package:common_atlas_frontend/app.dart'; // For MainScreen navigation
 
 class RoutesPage extends StatefulWidget {
   const RoutesPage({super.key});
@@ -111,12 +112,12 @@ class _RoutesPageState extends State<RoutesPage> {
                             onPressed: () {
                               if (userProv.userProfile.energy >= route.energyCost) {
                                 userProv.deductEnergy(route.energyCost);
-                                routeProv.setActiveRoute(route.id);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const ActiveRouteScreen(),
-                                  ),
+                                routeProv.setActiveRoute(route.id); 
+
+                                // Navigate to the Home tab (HomeMapPage) on MainScreen
+                                Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                                  MaterialPageRoute(builder: (context) => const MainScreen(initialPageIndex: 0)),
+                                  (route) => false, // Remove all previous routes, making MainScreen the root
                                 );
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(

@@ -49,11 +49,14 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.home_outlined),
-            title: const Text('Home (Routes)'),
+            title: const Text('Home (Map)'), // Changed Title
             onTap: () {
-              Navigator.pop(context); // Close drawer
-              // Clear active route if one exists, as we are going to the main route list
+              Navigator.pop(context); // Close drawer first
+
+              // Clear active route if one exists
               Provider.of<RouteProvider>(context, listen: false).clearActiveRoute();
+
+              // Navigate to MainScreen's first tab (HomeMapPage)
               Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => const MainScreen(initialPageIndex: 0)),
                 (route) => false,
