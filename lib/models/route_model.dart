@@ -1,5 +1,5 @@
 import 'package:common_atlas_frontend/models/checkpoint_model.dart';
-import 'package:latlong2/latlong2.dart'; // Added import
+import 'package:latlong2/latlong.dart';
 
 enum RouteType { scenic, active }
 
@@ -12,8 +12,8 @@ class RouteModel {
   final int energyCost;
   final List<CheckpointModel> checkpoints;
   final String description;
-  final String mapImagePlaceholder; // This might become less relevant
-  final List<LatLng> pathCoordinates; // New field
+  final String mapImagePlaceholder;
+  final List<LatLng> pathCoordinates;
 
   RouteModel({
     required this.id,
@@ -25,6 +25,6 @@ class RouteModel {
     required this.checkpoints,
     required this.description,
     required this.mapImagePlaceholder,
-    required this.pathCoordinates, // Added
+    required this.pathCoordinates,
   });
 }

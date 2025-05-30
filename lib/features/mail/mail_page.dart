@@ -1,6 +1,5 @@
-// lib/features/mail/mail_page.dart
+import 'package:common_atlas_frontend/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:common_atlas_frontend/widgets/app_drawer.dart'; // Added AppDrawer import
 
 class MailPage extends StatelessWidget {
   const MailPage({super.key});
@@ -19,14 +18,14 @@ class MailPage extends StatelessWidget {
                 Scaffold.of(context).openDrawer();
               },
             );
-          }
+          },
         ),
       ),
-      drawer: const AppDrawer(), // Added AppDrawer
+      drawer: const AppDrawer(),
       body: ListView(
-        padding: const EdgeInsets.all(8.0), // Less padding for list view of messages
+        padding: const EdgeInsets.all(8.0),
         children: <Widget>[
-            _buildMailItem(
+          _buildMailItem(
             context,
             icon: Icons.celebration_outlined,
             title: "Welcome to Common Atlas!",
@@ -51,29 +50,65 @@ class MailPage extends StatelessWidget {
             isRead: true,
           ),
         ],
-      )
+      ),
     );
   }
 }
 
-Widget _buildMailItem(BuildContext context, {required IconData icon, required String title, required String subtitle, required String date, bool isRead = false}) {
+Widget _buildMailItem(
+  BuildContext context, {
+  required IconData icon,
+  required String title,
+  required String subtitle,
+  required String date,
+  bool isRead = false,
+}) {
   return Card(
-    elevation: isRead ? 1.0 : 3.0, // Subtle difference for read/unread
+    elevation: isRead ? 1.0 : 3.0,
     margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
-      side: isRead ? BorderSide.none : BorderSide(color: Theme.of(context).colorScheme.primary, width: 0.5) // Highlight unread
+      side:
+          isRead
+              ? BorderSide.none
+              : BorderSide(color: Theme.of(context).colorScheme.primary, width: 0.5),
     ),
     child: ListTile(
       leading: CircleAvatar(
-        backgroundColor: isRead ? Colors.grey[300] : Theme.of(context).colorScheme.primary.withOpacity(0.2),
-        child: Icon(icon, size: 24, color: isRead ? Colors.grey[600] : Theme.of(context).colorScheme.primary),
+        backgroundColor:
+            isRead ? Colors.grey[300] : Theme.of(context).colorScheme.primary.withOpacity(0.2),
+        child: Icon(
+          icon,
+          size: 24,
+          color: isRead ? Colors.grey[600] : Theme.of(context).colorScheme.primary,
+        ),
       ),
-      title: Text(title, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: isRead ? FontWeight.normal : FontWeight.bold, fontSize: 17)),
-      subtitle: Text(subtitle, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: isRead ? Colors.grey[600] : Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.9)), maxLines: 2, overflow: TextOverflow.ellipsis,),
-      trailing: Text(date, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[500])),
-      isThreeLine: true, // To accommodate longer subtitles
-      onTap: () { /* TODO: Mark as read or navigate to message details if any */ },
+      title: Text(
+        title,
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+          fontWeight: isRead ? FontWeight.normal : FontWeight.bold,
+          fontSize: 17,
+        ),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+          color:
+              isRead
+                  ? Colors.grey[600]
+                  : Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.9),
+        ),
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
+      trailing: Text(
+        date,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[500]),
+      ),
+      isThreeLine: true,
+      onTap: () {
+        /* TODO: Mark as read or navigate to message details if any */
+      },
     ),
   );
 }

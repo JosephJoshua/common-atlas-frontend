@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/user_profile_model.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -11,7 +12,7 @@ class UserProvider extends ChangeNotifier {
   void deductEnergy(int amount) {
     _userProfile = UserProfileModel(
       points: _userProfile.points,
-      energy: (_userProfile.energy - amount).clamp(0, 1000), // Assuming max energy is 1000, can be adjusted
+      energy: (_userProfile.energy - amount).clamp(0, 1000),
     );
     notifyListeners();
   }

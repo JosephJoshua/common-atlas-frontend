@@ -1,6 +1,5 @@
-// lib/features/tutorial/tutorial_page.dart
+import 'package:common_atlas_frontend/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:common_atlas_frontend/widgets/app_drawer.dart'; // Added AppDrawer import
 
 class TutorialPage extends StatelessWidget {
   const TutorialPage({super.key});
@@ -19,24 +18,25 @@ class TutorialPage extends StatelessWidget {
                 Scaffold.of(context).openDrawer();
               },
             );
-          }
+          },
         ),
       ),
-      drawer: const AppDrawer(), // Added AppDrawer
+      drawer: const AppDrawer(),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: <Widget>[
           Text(
-            "How to Use Common Atlas", 
+            "How to Use Common Atlas",
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center, // Center the main title
+            textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 20), // Increased spacing
+          const SizedBox(height: 20),
           _buildTutorialItem(
             context,
             icon: Icons.map_outlined,
             title: "Finding Your First Route",
-            subtitle: "Learn how to browse and select scenic or active routes to begin your adventure.",
+            subtitle:
+                "Learn how to browse and select scenic or active routes to begin your adventure.",
           ),
           _buildTutorialItem(
             context,
@@ -48,7 +48,8 @@ class TutorialPage extends StatelessWidget {
             context,
             icon: Icons.star_border_outlined,
             title: "Earning Points & Using Rewards",
-            subtitle: "Complete routes to earn points and redeem them for cool rewards in the Store.",
+            subtitle:
+                "Complete routes to earn points and redeem them for cool rewards in the Store.",
           ),
           _buildTutorialItem(
             context,
@@ -57,19 +58,24 @@ class TutorialPage extends StatelessWidget {
             subtitle: "See your completed routes and achievements on the Progress page.",
           ),
         ],
-      )
+      ),
     );
   }
 }
 
-Widget _buildTutorialItem(BuildContext context, {required IconData icon, required String title, required String subtitle}) {
+Widget _buildTutorialItem(
+  BuildContext context, {
+  required IconData icon,
+  required String title,
+  required String subtitle,
+}) {
   return Card(
     margin: const EdgeInsets.symmetric(vertical: 8.0),
     child: ListTile(
       leading: Icon(icon, size: 30, color: Theme.of(context).colorScheme.primary),
-      title: Text(title, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18)), // Adjusted for better fit
+      title: Text(title, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18)),
       subtitle: Text(subtitle, style: Theme.of(context).textTheme.bodyMedium),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // Adjusted padding
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
     ),
   );
 }

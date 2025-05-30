@@ -1,17 +1,17 @@
-import 'package:common_atlas_frontend/features/home_map/home_map_page.dart'; // Added
+import 'package:common_atlas_frontend/features/home_map/home_map_page.dart';
 import 'package:common_atlas_frontend/features/profile/profile_page.dart';
-import 'package:common_atlas_frontend/features/progress/progress_page.dart'; // Added
+import 'package:common_atlas_frontend/features/progress/progress_page.dart';
 import 'package:common_atlas_frontend/features/routes/routes_page.dart';
 import 'package:common_atlas_frontend/features/store/store_page.dart';
+import 'package:common_atlas_frontend/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart'; // Added for google_fonts
+import 'package:google_fonts/google_fonts.dart';
 
 class CommonAtlasApp extends StatelessWidget {
   const CommonAtlasApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Define the base theme to get default text styling
     final ThemeData base = ThemeData.light();
 
     return MaterialApp(
@@ -19,34 +19,41 @@ class CommonAtlasApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme(
-          primary: const Color(0xFF5B86E5), // Calm blue
-          secondary: const Color(0xFF36D1DC), // Teal/Green
-          background: const Color(0xFFF4F6F8), // Very light grey/off-white
-          surface: Colors.white, // For cards
-          error: Colors.redAccent, // Standard error color
-          onPrimary: Colors.white, // Text on primary color
-          onSecondary: Colors.black, // Text on secondary color
-          onBackground: const Color(0xFF333333), // Dark grey for body text
-          onSurface: const Color(0xFF333333), // Text on surface (cards)
-          onError: Colors.white, // Text on error color
+          primary: const Color(0xFF5B86E5),
+          secondary: const Color(0xFF36D1DC),
+          surface: Colors.white,
+          error: Colors.redAccent,
+          onPrimary: Colors.white,
+          onSecondary: Colors.black,
+          onSurface: const Color(0xFF333333),
+          onError: Colors.white,
           brightness: Brightness.light,
         ),
-        scaffoldBackgroundColor: const Color(0xFFF4F6F8), // Match background
+        scaffoldBackgroundColor: const Color(0xFFF4F6F8),
         textTheme: GoogleFonts.latoTextTheme(base.textTheme).copyWith(
-          bodyMedium: GoogleFonts.lato(textStyle: base.textTheme.bodyMedium?.copyWith(color: const Color(0xFF333333))),
-          titleMedium: GoogleFonts.lato(textStyle: base.textTheme.titleMedium?.copyWith(color: const Color(0xFF333333))),
-          headlineSmall: GoogleFonts.lato(textStyle: base.textTheme.headlineSmall?.copyWith(color: const Color(0xFF333333), fontWeight: FontWeight.w600)),
+          bodyMedium: GoogleFonts.lato(
+            textStyle: base.textTheme.bodyMedium?.copyWith(color: const Color(0xFF333333)),
+          ),
+          titleMedium: GoogleFonts.lato(
+            textStyle: base.textTheme.titleMedium?.copyWith(color: const Color(0xFF333333)),
+          ),
+          headlineSmall: GoogleFonts.lato(
+            textStyle: base.textTheme.headlineSmall?.copyWith(
+              color: const Color(0xFF333333),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         primaryTextTheme: GoogleFonts.latoTextTheme(base.primaryTextTheme),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           elevation: 2.0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
           margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF5B86E5), // Use primary color
-            foregroundColor: Colors.white, // Text color
+            backgroundColor: const Color(0xFF5B86E5),
+            foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           ),
@@ -55,7 +62,7 @@ class CommonAtlasApp extends StatelessWidget {
           style: TextButton.styleFrom(foregroundColor: const Color(0xFF5B86E5)),
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          selectedItemColor: const Color(0xFF5B86E5), // Primary color
+          selectedItemColor: const Color(0xFF5B86E5),
           unselectedItemColor: Colors.grey[600],
           backgroundColor: Colors.white,
           elevation: 5.0,
@@ -78,21 +85,7 @@ class _MainScreenState extends State<MainScreen> {
   late PageController _pageController;
   late int _selectedIndex;
 
-  @override
-  void initState() {
-    super.initState();
-    _selectedIndex = widget.initialPageIndex ?? 0;
-    _pageController = PageController(initialPage: _selectedIndex);
-  }
-
-import 'package:common_atlas_frontend/widgets/app_drawer.dart'; // Ensure AppDrawer is imported
-
-class _MainScreenState extends State<MainScreen> {
-  late PageController _pageController;
-  late int _selectedIndex;
-  // Define titles for each page to be used in AppBar
   final List<String> _pageTitles = const ["Home", "Routes", "Progress", "Store", "Profile"];
-
 
   @override
   void initState() {
@@ -104,8 +97,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( // Added AppBar to MainScreen
-        title: Text(_pageTitles[_selectedIndex]), // Dynamic title
+      appBar: AppBar(
+        title: Text(_pageTitles[_selectedIndex]),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -115,11 +108,10 @@ class _MainScreenState extends State<MainScreen> {
                 Scaffold.of(context).openDrawer();
               },
             );
-          }
+          },
         ),
-        // Potentially add actions here if needed globally for these main screens
       ),
-      drawer: const AppDrawer(), // Added AppDrawer to MainScreen's Scaffold
+      drawer: const AppDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
@@ -142,9 +134,9 @@ class _MainScreenState extends State<MainScreen> {
         child: PageView(
           controller: _pageController,
           children: const <Widget>[
-            HomeMapPage(), // New first page
+            HomeMapPage(),
             RoutesPage(),
-            ProgressPage(), // This should be the existing ProgressPage placeholder or implementation
+            ProgressPage(),
             StorePage(),
             ProfilePage(),
           ],

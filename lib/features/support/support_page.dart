@@ -1,19 +1,21 @@
-import 'package:flutter/material.dart';
-// import 'package:url_launcher/url_launcher.dart'; // Optional: if URL launching is implemented
 import 'package:common_atlas_frontend/widgets/app_drawer.dart';
+import 'package:flutter/material.dart';
 
 class SupportPage extends StatelessWidget {
   const SupportPage({super.key});
 
   Widget _buildFAQItem(BuildContext context, String question, String answer) {
     return ExpansionTile(
-      title: Text(question, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
-      childrenPadding: const EdgeInsets.all(16.0).copyWith(top: 0, bottom: 10), // Applied padding
-      iconColor: Theme.of(context).colorScheme.primary, // Applied color
-      collapsedIconColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.7), // Applied color
+      title: Text(
+        question,
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+      ),
+      childrenPadding: const EdgeInsets.all(16.0).copyWith(top: 0, bottom: 10),
+      iconColor: Theme.of(context).colorScheme.primary,
+      collapsedIconColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 8.0), 
+          padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(answer, style: Theme.of(context).textTheme.bodyMedium),
         ),
       ],
@@ -24,7 +26,7 @@ class SupportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("SUPPORT"),
+        title: const Text("Support"),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -34,7 +36,7 @@ class SupportPage extends StatelessWidget {
                 Scaffold.of(context).openDrawer();
               },
             );
-          }
+          },
         ),
       ),
       drawer: const AppDrawer(),
@@ -44,8 +46,13 @@ class SupportPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Frequently Asked Questions", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 12), // Consistent spacing
+              Text(
+                "Frequently Asked Questions",
+                style: Theme.of(
+                  context,
+                ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 12),
               _buildFAQItem(
                 context,
                 "How do I reset my password?",
@@ -76,49 +83,64 @@ class SupportPage extends StatelessWidget {
                 "What do the different checkpoint game types mean?",
                 "Trivia challenges test your knowledge, Photo Challenges ask you to capture a specific scene, and Prop Hunts involve finding a hidden object at the location. Each offers a unique way to interact with your surroundings!",
               ),
-              const SizedBox(height: 24), 
+              const SizedBox(height: 24),
 
-              Text("Contact Us", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 12), 
+              Text(
+                "Contact Us",
+                style: Theme.of(
+                  context,
+                ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 12),
               Text(
                 "For further assistance, feature requests, or bug reports, please email us at:",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: 4), 
-              SelectableText( 
+              const SizedBox(height: 4),
+              SelectableText(
                 "support@commonatlas.dev",
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(height: 12), 
-              Text(
-                "Or visit our support website:",
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              const SizedBox(height: 4), 
+              const SizedBox(height: 12),
+              Text("Or visit our support website:", style: Theme.of(context).textTheme.bodyLarge),
+              const SizedBox(height: 4),
               TextButton.icon(
-                icon: Icon(Icons.link, color: Theme.of(context).colorScheme.primary), 
+                icon: Icon(Icons.link, color: Theme.of(context).colorScheme.primary),
                 label: Text(
                   "commonatlas.dev/support",
-                  style: TextStyle(color: Theme.of(context).colorScheme.primary, decoration: TextDecoration.underline), 
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
                 onPressed: () {
-                  // TODO: Launch URL if url_launcher is used
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("URL Launching not yet implemented.")),
                   );
                   print("Visit website button tapped");
                 },
-                style: TextButton.styleFrom(padding: EdgeInsets.zero, alignment: Alignment.centerLeft),
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  alignment: Alignment.centerLeft,
+                ),
               ),
-              const SizedBox(height: 24), 
+              const SizedBox(height: 24),
 
-              Text("About Common Atlas", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 12), 
-              Text("Version: 1.0.0 (Polished MVP)", style: Theme.of(context).textTheme.bodyMedium), // Updated version string
-              const SizedBox(height: 8), 
               Text(
-                "Common Atlas is your guide to exploring the city in a fun and interactive way! Discover hidden gems, complete challenges, and learn more about your surroundings. Embark on adventures, test your knowledge, and see your city in a new light!", // Slightly expanded description
-                style: Theme.of(context).textTheme.bodyMedium, 
+                "About Common Atlas",
+                style: Theme.of(
+                  context,
+                ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 12),
+              Text("Version: 1.0.0 (Polished MVP)", style: Theme.of(context).textTheme.bodyMedium),
+              const SizedBox(height: 8),
+              Text(
+                "Common Atlas is your guide to exploring the city in a fun and interactive way! Discover hidden gems, complete challenges, and learn more about your surroundings. Embark on adventures, test your knowledge, and see your city in a new light!",
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 20),
             ],

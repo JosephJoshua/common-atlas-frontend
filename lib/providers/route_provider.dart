@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong2.dart'; // Ensure this is imported
-import '../models/route_model.dart';
+import 'package:latlong2/latlong.dart';
+
 import '../models/checkpoint_model.dart';
+import '../models/route_model.dart';
 
 class RouteProvider extends ChangeNotifier {
   List<RouteModel> _availableRoutes;
@@ -11,15 +12,13 @@ class RouteProvider extends ChangeNotifier {
   RouteModel? get activeRoute => _activeRoute;
 
   RouteProvider() : _availableRoutes = [] {
-    // Define LatLng positions for Freedom Trail Snippet checkpoints
-    final LatLng ftCp1Pos = LatLng(42.3550, -71.0650); // Boston Common (near Visitor Center)
-    final LatLng ftCp2Pos = LatLng(42.3587, -71.0625); // Massachusetts State House
-    final LatLng ftCp3Pos = LatLng(42.3590, -71.0600); // Park Street Church
+    final LatLng ftCp1Pos = LatLng(42.3550, -71.0650);
+    final LatLng ftCp2Pos = LatLng(42.3587, -71.0625);
+    final LatLng ftCp3Pos = LatLng(42.3590, -71.0600);
 
-    // Define LatLng positions for Harborwalk Quick View checkpoints
-    final LatLng hwCp1Pos = LatLng(42.3580, -71.0510); // Rowes Wharf (Boston Harbor Hotel)
-    final LatLng hwCp2Pos = LatLng(42.3520, -71.0450); // Institute of Contemporary Art
-    final LatLng hwCp3Pos = LatLng(42.3535, -71.0410); // Fan Pier Park
+    final LatLng hwCp1Pos = LatLng(42.3580, -71.0510);
+    final LatLng hwCp2Pos = LatLng(42.3520, -71.0450);
+    final LatLng hwCp3Pos = LatLng(42.3535, -71.0410);
 
     _availableRoutes = [
       RouteModel(
@@ -29,14 +28,15 @@ class RouteProvider extends ChangeNotifier {
         distance: "Approx. 1 mile",
         difficulty: "Easy",
         energyCost: 10,
-        description: "A short walk through some of Boston's historic landmarks, starting at the Boston Common.",
-        mapImagePlaceholder: "assets/maps/freedom_trail_mock.png", // May become less relevant
+        description:
+            "A short walk through some of Boston's historic landmarks, starting at the Boston Common.",
+        mapImagePlaceholder: "assets/maps/freedom_trail_mock.png",
         checkpoints: [
           CheckpointModel(
             id: "ft1",
             name: "Boston Common",
             gameType: MockGameType.trivia,
-            gameDescription: "Oldest city park in the United States.", // General description
+            gameDescription: "Oldest city park in the United States.",
             gameAnswerPlaceholder: "Enter Year",
             position: ftCp1Pos,
             triviaQuestion: "What year was Boston Common established as a public park?",
@@ -46,7 +46,8 @@ class RouteProvider extends ChangeNotifier {
             id: "ft2",
             name: "State House",
             gameType: MockGameType.photoChallenge,
-            gameDescription: "The Massachusetts State House is the state capitol and house of government.", // General description
+            gameDescription:
+                "The Massachusetts State House is the state capitol and house of government.",
             gameAnswerPlaceholder: "Simulate Photo",
             position: ftCp2Pos,
             photoChallengeTask: "Take a unique photo of the State House's golden dome.",
@@ -60,11 +61,11 @@ class RouteProvider extends ChangeNotifier {
             position: ftCp3Pos,
           ),
         ],
-        pathCoordinates: [ 
+        pathCoordinates: [
           ftCp1Pos,
-          LatLng(42.3570, -71.0630), // Intermediate point between Boston Common and State House
+          LatLng(42.3570, -71.0630),
           ftCp2Pos,
-          LatLng(42.3588, -71.0610), // Intermediate point
+          LatLng(42.3588, -71.0610),
           ftCp3Pos,
         ],
       ),
@@ -82,16 +83,17 @@ class RouteProvider extends ChangeNotifier {
             id: "hw1",
             name: "Rowes Wharf Arch",
             gameType: MockGameType.photoChallenge,
-            gameDescription: "Iconic archway at Rowes Wharf, a gateway to the harbor.", // General description
+            gameDescription: "Iconic archway at Rowes Wharf, a gateway to the harbor.",
             gameAnswerPlaceholder: "Simulate Photo",
             position: hwCp1Pos,
-            photoChallengeTask: "Capture a creative photo of the Rowes Wharf Arch, perhaps with a boat in the background.",
+            photoChallengeTask:
+                "Capture a creative photo of the Rowes Wharf Arch, perhaps with a boat in the background.",
           ),
           CheckpointModel(
             id: "hw2",
             name: "ICA Overlook",
             gameType: MockGameType.trivia,
-            gameDescription: "The Institute of Contemporary Art offers stunning harbor views.", // General description
+            gameDescription: "The Institute of Contemporary Art offers stunning harbor views.",
             gameAnswerPlaceholder: "Enter Year",
             position: hwCp2Pos,
             triviaQuestion: "What major body of water does the ICA overlook?",
@@ -108,18 +110,20 @@ class RouteProvider extends ChangeNotifier {
         ],
         pathCoordinates: [
           hwCp1Pos,
-          LatLng(42.3555, -71.0480), // Point along Harborwalk towards ICA
+          LatLng(42.3555, -71.0480),
           hwCp2Pos,
-          LatLng(42.3528, -71.0430), // Point between ICA and Fan Pier Park
+          LatLng(42.3528, -71.0430),
           hwCp3Pos,
         ],
       ),
-      // Removed Emerald Necklace Path for brevity, as only two routes were requested for update
     ];
   }
 
   void setActiveRoute(String routeId) {
-    _activeRoute = _availableRoutes.firstWhere((route) => route.id == routeId, orElse: () => _availableRoutes.first);
+    _activeRoute = _availableRoutes.firstWhere(
+      (route) => route.id == routeId,
+      orElse: () => _availableRoutes.first,
+    );
     notifyListeners();
   }
 
@@ -132,11 +136,12 @@ class RouteProvider extends ChangeNotifier {
     if (_activeRoute != null) {
       final checkpointIndex = _activeRoute!.checkpoints.indexWhere((cp) => cp.id == checkpointId);
       if (checkpointIndex != -1) {
-        // Directly update the status of the checkpoint in the list
         _activeRoute!.checkpoints[checkpointIndex].status = CheckpointStatus.completed;
         notifyListeners();
       } else {
-        print("Error completing checkpoint: Checkpoint ID $checkpointId not found in active route.");
+        print(
+          "Error completing checkpoint: Checkpoint ID $checkpointId not found in active route.",
+        );
       }
     }
   }

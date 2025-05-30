@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import '../features/tutorial/tutorial_page.dart';
+import 'package:provider/provider.dart';
+
+import '../app.dart';
 import '../features/mail/mail_page.dart';
 import '../features/news/news_page.dart';
+import '../features/settings/settings_page.dart';
 import '../features/support/support_page.dart';
-import '../features/settings/settings_page.dart'; // Added for SettingsPage
-import '../app.dart'; // Required for MainScreen for navigation
-import 'package:provider/provider.dart'; // Added for RouteProvider
-import '../providers/route_provider.dart'; // Added for RouteProvider
+import '../features/tutorial/tutorial_page.dart';
+import '../providers/route_provider.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -39,25 +40,31 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
-            child: Align( // Align text to bottom left with padding
+            child: Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 12.0, left: 4.0), // Adjust padding as needed
+                padding: const EdgeInsets.only(bottom: 12.0, left: 4.0),
                 child: Text(
-                  'Common Atlas Menu',
+                  'Common Atlas',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Colors.white, // Explicitly white for onPrimary
-                        fontWeight: FontWeight.bold,
-                      ),
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
-            title: Text('Home (Map)', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
+            leading: Icon(
+              Icons.home_outlined,
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+            ),
+            title: Text(
+              'Home',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+            ),
             onTap: () {
-              Navigator.pop(context); // Close drawer first
+              Navigator.pop(context);
               Provider.of<RouteProvider>(context, listen: false).clearActiveRoute();
               Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => const MainScreen(initialPageIndex: 0)),
@@ -66,49 +73,91 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.article_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
-            title: Text('News', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
+            leading: Icon(
+              Icons.article_outlined,
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+            ),
+            title: Text(
+              'News',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+            ),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsPage()));
             },
           ),
           ListTile(
-            leading: Icon(Icons.support_agent_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
-            title: Text('Support', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
+            leading: Icon(
+              Icons.support_agent_outlined,
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+            ),
+            title: Text(
+              'Support',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+            ),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => const SupportPage()));
             },
           ),
           ListTile(
-            leading: Icon(Icons.school_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
-            title: Text('Tutorial', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
+            leading: Icon(
+              Icons.school_outlined,
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+            ),
+            title: Text(
+              'Tutorial',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+            ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const TutorialPage()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TutorialPage()),
+              );
             },
           ),
           ListTile(
-            leading: Icon(Icons.mail_outline, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
-            title: Text('Mail', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
+            leading: Icon(
+              Icons.mail_outline,
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+            ),
+            title: Text(
+              'Mail',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+            ),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => const MailPage()));
             },
           ),
-          Divider(thickness: 1, color: Colors.grey[200]), // Styled Divider
+          Divider(thickness: 1, color: Colors.grey[200]),
           ListTile(
-            leading: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
-            title: Text('Settings', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
+            leading: Icon(
+              Icons.settings_outlined,
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+            ),
+            title: Text(
+              'Settings',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+            ),
             onTap: () {
-              Navigator.pop(context); // Close drawer
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage()));
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
+              );
             },
           ),
           ListTile(
-            leading: Icon(Icons.logout_outlined, color: Theme.of(context).colorScheme.primary.withOpacity(0.8)),
-            title: Text('Log Out', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
+            leading: Icon(
+              Icons.logout_outlined,
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+            ),
+            title: Text(
+              'Log Out',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+            ),
             onTap: () {
               Navigator.pop(context);
               _showPlaceholderDialog(context, "Log Out");

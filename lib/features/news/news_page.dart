@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:common_atlas_frontend/widgets/app_drawer.dart';
+import 'package:flutter/material.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -8,7 +8,7 @@ class NewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("NEWS"),
+        title: const Text("News"),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -18,7 +18,7 @@ class NewsPage extends StatelessWidget {
                 Scaffold.of(context).openDrawer();
               },
             );
-          }
+          },
         ),
       ),
       drawer: const AppDrawer(),
@@ -27,14 +27,12 @@ class NewsPage extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Main Content Area (Left)
             Expanded(
-              flex: 2, // Adjusted flex factor
+              flex: 2,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Featured Article 1
                     AspectRatio(
                       aspectRatio: 16 / 9,
                       child: Container(
@@ -42,13 +40,17 @@ class NewsPage extends StatelessWidget {
                           color: Colors.grey[300],
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        child: Center(child: Icon(Icons.image_outlined, size: 50, color: Colors.grey[500])),
+                        child: Center(
+                          child: Icon(Icons.image_outlined, size: 50, color: Colors.grey[500]),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 12), // Adjusted spacing
+                    const SizedBox(height: 12),
                     Text(
                       "Summer Exploration Challenge Announced!",
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -58,21 +60,28 @@ class NewsPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    // Featured Article 2 (Optional)
-                     AspectRatio(
+                    AspectRatio(
                       aspectRatio: 16 / 9,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey[350], // Slightly different color for visual distinction
+                          color: Colors.grey[350],
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        child: Center(child: Icon(Icons.developer_mode_outlined, size: 50, color: Colors.grey[600])),
+                        child: Center(
+                          child: Icon(
+                            Icons.developer_mode_outlined,
+                            size: 50,
+                            color: Colors.grey[600],
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 12),
                     Text(
                       "Developer Insights: The Making of the Map",
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -86,7 +95,6 @@ class NewsPage extends StatelessWidget {
             ),
             const SizedBox(width: 20),
 
-            // Sidebar Area (Right)
             Expanded(
               flex: 1,
               child: SingleChildScrollView(
@@ -95,20 +103,44 @@ class NewsPage extends StatelessWidget {
                   children: [
                     Text(
                       "Patch Notes",
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
-                    _buildSidebarLinkItem(context, "Version 1.1.0: Map Polish & UI Enhancements", "Improved map loading times and updated several UI elements for a cleaner look."),
-                    _buildSidebarLinkItem(context, "Version 1.0.5: New Routes in Downtown", "Added three exciting new routes for exploring the downtown area. Check them out!"),
-                    _buildSidebarLinkItem(context, "Version 1.0.2: Minigame Fixes", "Addressed minor bugs in Trivia and Photo Challenge minigames."),
+                    _buildSidebarLinkItem(
+                      context,
+                      "Version 1.1.0: Map Polish & UI Enhancements",
+                      "Improved map loading times and updated several UI elements for a cleaner look.",
+                    ),
+                    _buildSidebarLinkItem(
+                      context,
+                      "Version 1.0.5: New Routes in Downtown",
+                      "Added three exciting new routes for exploring the downtown area. Check them out!",
+                    ),
+                    _buildSidebarLinkItem(
+                      context,
+                      "Version 1.0.2: Minigame Fixes",
+                      "Addressed minor bugs in Trivia and Photo Challenge minigames.",
+                    ),
                     const SizedBox(height: 24),
-                     Text(
+                    Text(
                       "Community Spotlight",
-                       style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
-                    _buildSidebarLinkItem(context, "Route of the Week: 'Parkside Loop' by Explorer123", "Discover this amazing user-created route!"),
-                    _buildSidebarLinkItem(context, "Photo Contest Winners Announced!", "See the stunning winning entries from our latest photo challenge."),
+                    _buildSidebarLinkItem(
+                      context,
+                      "Route of the Week: 'Parkside Loop' by Explorer123",
+                      "Discover this amazing user-created route!",
+                    ),
+                    _buildSidebarLinkItem(
+                      context,
+                      "Photo Contest Winners Announced!",
+                      "See the stunning winning entries from our latest photo challenge.",
+                    ),
                   ],
                 ),
               ),
@@ -120,7 +152,6 @@ class NewsPage extends StatelessWidget {
   }
 }
 
-// New helper method for sidebar items
 Widget _buildSidebarLinkItem(BuildContext context, String title, String? description) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -130,9 +161,9 @@ Widget _buildSidebarLinkItem(BuildContext context, String title, String? descrip
         Text(
           title,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.w600,
-              ),
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         if (description != null) ...[
           const SizedBox(height: 2),
@@ -140,7 +171,7 @@ Widget _buildSidebarLinkItem(BuildContext context, String title, String? descrip
             description,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[700]),
           ),
-        ]
+        ],
       ],
     ),
   );
